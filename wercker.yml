@@ -53,7 +53,7 @@ upload-to-oci:
       api-key: "$(cat gen-api.pem)"
       bucket-name: $BUCKET_NAME
       namespace: $NAMESPACE
-      local-file:
+      local-file: myrecording.jfr
       overwrite: true
       
 #not in use, timeout attribute seems to be causing issues 
