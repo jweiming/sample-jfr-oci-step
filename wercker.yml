@@ -29,13 +29,15 @@ build:
     - script:
       code: |
         ls -al
-        ls /pipeline/source/build/libs
+        echo "Checking build/libs folder"
+        ls -al /pipeline/source/build/libs
 
 regular-test:
   steps:
     - markxnelson/java-flight-recorder:
       application: com.oracle.sample.SampleApplication
-      classpath: /pipeline/source/build/libs/sample-jfr-step.jar
+      #classpath: /pipeline/source/build/libs/sample-jfr-step.jar
+      classpath: /pipeline/source/build/libs/source.jar
       filename: myrecording.jfr
       experimental: true
       duration: 4m
@@ -46,7 +48,8 @@ test-timeout:
     - markxnelson/java-flight-recorder:
       timeout: 2m
       application: com.oracle.sample.SampleApplication
-      classpath: /pipeline/source/build/libs/sample-jfr-step.jar
+      #classpath: /pipeline/source/build/libs/sample-jfr-step.jar
+      classpath: /pipeline/source/build/libs/source.jar
       filename: myrecording.jfr
       experimental: true
       duration: 4m
