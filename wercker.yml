@@ -39,18 +39,3 @@ test-timeout:
       delay: 30s 
       maxsize: 10M
       maxage: 1h
-
-regular-test-java9:
-  box:
-    id: store/oracle/serverjre
-    username: $DOCKER_USERNAME
-    password: $DOCKER_PASSWORD
-    tag: 9
-  steps:
-    - markxnelson/java-flight-recorder:
-      application: com.oracle.sample.SampleApplication
-      classpath: /pipeline/source/build/libs/sample-jfr-step.jar
-      filename: myrecording.jfr
-      experimental: true
-      duration: 4m
-      delay: 30s
