@@ -16,6 +16,16 @@ build:
         echo "Hello Java Flight Recorder!"
         echo "Choose the pipeline you want to run, e.g. 'test-timeout' and run it like this:"
         echo "wercker build --pipeline=test-timeout"
+        
+    # https://github.com/wercker/step-gradle
+    - java/gradle:
+      task: build
+      cache_project_cache: true
+      
+    - script:
+      code: |
+        ls -al
+        ls /pipeline/source/build/libs
 
 regular-test:
   steps:
