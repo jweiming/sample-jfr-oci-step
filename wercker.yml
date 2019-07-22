@@ -17,6 +17,10 @@ build:
         echo "Choose the pipeline you want to run, e.g. 'test-timeout' and run it like this:"
         echo "wercker build --pipeline=test-timeout"
         
+    - script:
+      code : |
+        RUN apk --no-cache add curl  
+        
     # https://github.com/wercker/step-gradle
     - java/gradle:
       task: build
