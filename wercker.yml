@@ -19,7 +19,7 @@ build:
         
     - script:
       code : |
-        RUN apk --no-cache add curl  
+        apk --no-cache add curl  
         
     # https://github.com/wercker/step-gradle
     - java/gradle:
