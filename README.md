@@ -78,6 +78,7 @@ When the build is finished, the output will be available in the file `myrecordin
 ## To-do
 
 1) Investigate using ```timeout``` parameter for the jfr step as it seems to cause issues (e.g. unregonised parameter)
+2) Running it with Springboot/Micronaut applications (jar file)
 2) Need find a better way to inject the api key into the wercker pipeline.
 
 ## Credits
