@@ -7,7 +7,6 @@
 box: 
   id: anapsix/alpine-java:8u201b09_jdk
 
-# this pipeline does not really do anything, it just acts as a fan-out point to run all of test/demo pipelines
 build:
   steps:
     - script:
@@ -25,30 +24,44 @@ build:
     - java/gradle:
       task: build
       cache_project_cache: true
-      
-    - script:
-      code: |
-        ls -al
-        echo "Checking build/libs folder"
-        ls -al /pipeline/source/build/libs
 
 regular-test:
   steps:
     - markxnelson/java-flight-recorder:
       application: com.oracle.sample.SampleApplication
-      #classpath: /pipeline/source/build/libs/sample-jfr-step.jar
       classpath: /pipeline/source/build/libs/source.jar
       filename: myrecording.jfr
       experimental: true
       duration: 4m
       delay: 30s
- 
+     
+upload-to-oci:
+  steps:
+    - script:
+      name: Set API_KEY file
+      code:  |
+         echo -ne "-----BEGIN RSA PRIVATE KEY-----\n" > gen-api.pem
+         echo -ne $OS_APIKEY | tr " " "\n" >> gen-api.pem
+         echo -ne "\n-----END RSA PRIVATE KEY-----\n" >> gen-api.pem
+         
+    - oci-objectstore:
+      command: put
+      region: us-ashburn-1
+      tenancy-ocid: $TENANCY_OCID
+      user-ocid: $USER_OCID
+      fingerprint: $FINGERPRINT
+      api-key: "$(cat gen-api.pem)"
+      bucket-name: $BUCKET_NAME
+      namespace: $NAMESPACE
+      local-file:
+      overwrite: true
+      
+#not in use, timeout attribute seems to be causing issues 
 test-timeout:
   steps:
     - markxnelson/java-flight-recorder:
       timeout: 2m
       application: com.oracle.sample.SampleApplication
-      #classpath: /pipeline/source/build/libs/sample-jfr-step.jar
       classpath: /pipeline/source/build/libs/source.jar
       filename: myrecording.jfr
       experimental: true
