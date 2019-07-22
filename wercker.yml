@@ -25,9 +25,9 @@ build:
       task: build
       cache_project_cache: true
 
-regular-test:
+jfr:
   steps:
-    - markxnelson/java-flight-recorder:
+    - wercker/java-flight-recorder:
       application: com.oracle.sample.SampleApplication
       classpath: /pipeline/source/build/libs/source.jar
       filename: myrecording.jfr
@@ -57,9 +57,9 @@ upload-to-oci:
       overwrite: true
       
 #not in use, timeout attribute seems to be causing issues 
-test-timeout:
+jfr-timeout:
   steps:
-    - markxnelson/java-flight-recorder:
+    - wercker/java-flight-recorder:
       timeout: 2m
       application: com.oracle.sample.SampleApplication
       classpath: /pipeline/source/build/libs/source.jar
