@@ -5,10 +5,7 @@
 #
 
 box: 
-  id: store/oracle/serverjre
-  username: $DOCKER_USERNAME
-  password: $DOCKER_PASSWORD
-  tag: 8
+  id: anapsix/alpine-java:8u201b09_jdk
 
 # this pipeline does not really do anything, it just acts as a fan-out point to run all of test/demo pipelines
 build:
