@@ -75,6 +75,8 @@ upload-to-oci:
 
 When the build is finished, the output will be available in the file `myrecording.jfr` in the OCI object storage bucket, as requested.  You can open the recording in Java Mission Control.
 
+![sample screen](doc/jfr-sample.jpg)
+
 ## To-do
 
 1) Investigate using ```timeout``` parameter for the jfr step as it seems to cause issues (e.g. unregonised parameter)
